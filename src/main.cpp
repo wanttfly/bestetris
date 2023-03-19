@@ -1,4 +1,3 @@
-
 #include <Arduino.h>
 #include <FastLED.h>
 #define NUM_LEDS 8
@@ -12,7 +11,7 @@ int blue = 0;
 int brightness_f = 0;
 
 void setup() {
-  delay(3000);
+  delay(5000);
 
   FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);  // GRB ordering is assumed
   FastLED.setBrightness(255);
@@ -27,31 +26,30 @@ void random_color() {
 
 }
 
-void loading_visualization(int brightness_f) {
+void loading_visualization_2(int brightness_f, int delay_f, int red, int green, int blue) {
   FastLED.setBrightness(brightness_f);
 
   for(int i = 0; i < NUM_LEDS; i++) {
     // set our current dot to red
-    leds[i] = CRGB::Green;
-    delay(50);
+    leds[i].setRGB( red, green, blue);
+    delay(delay_f);
     FastLED.show();
     leds[i] = CRGB::Black;
-    delay(50);
+    delay(delay_f);
   };
   for(int i = NUM_LEDS-1; i >= 0; i--) {
     // set our current dot to red
-    leds[i] = CRGB::Green;
-    delay(50);
+    leds[i].setRGB( red, green, blue);
+    delay(delay_f);
     FastLED.show();
     // clear our current dot before we move on
     leds[i] = CRGB::Black;
-    delay(50);
+    delay(delay_f);
   };
 
 }
 
 void loop() {
-  loading_visualization(2);
-  delay(50);
-  loading_visualization(20);
+  random_color();
+  loading_visualization_2(25, 25, red, green, blue);
 };
